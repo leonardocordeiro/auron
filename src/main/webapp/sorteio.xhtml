@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Auron</title>
+</h:head> 
+<body>
+<p:messages autoUpdate="true" />
+<p:fieldset legend="Preencha seus dados!">
+	<h:form>
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Nome: "/>
+			<p:inputText value="#{sorteioBean.sorteio.nome}" />
+	
+			<p:row>
+				<p:column colspan="2">
+					<p:commandButton value="Cadastrar" action="#{sorteioBean.sortear}" update=":pares" />
+				</p:column> 
+			</p:row>
+		</p:panelGrid>
+	</h:form>
+</p:fieldset>
+<br />
+<p:fieldset legend="Sorteios" id="pares">
+	<p:dataTable value="#{sorteioBean.pares}" var="par" emptyMessage="">
+		<p:column headerText="Nome do Sorteio">
+			<h:outputText value="#{par.sorteio.nome}" />
+		</p:column>
+		<p:column headerText="Amigo:">
+			<h:outputText value="#{par.amigo.nome}" />
+		</p:column>
+		<p:column headerText="Amigo Oculto:">
+			<h:outputText value="#{par.amigoOculto.nome}" />
+		</p:column>
+	</p:dataTable>
+</p:fieldset>
+
+	<!-- AJAX Loader Modal -->
+	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+	    <p:graphicImage name="imagens/ajax.gif" />
+	</p:dialog>
+
+</body> 
+</html>
+
