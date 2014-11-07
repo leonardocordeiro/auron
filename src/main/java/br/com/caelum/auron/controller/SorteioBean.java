@@ -31,6 +31,7 @@ public class SorteioBean {
 	public void sortear() {
 		List<Participante> participantes = participanteDao.getParticipantes();
 		Sorteador sorteador = new Sorteador(participantes);
+		Sorteador sorteador2;
 		try { 
 			sorteador.sortear(sorteio);
 			sorteioDao.inserir(sorteio);
