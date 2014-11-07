@@ -42,20 +42,3 @@ public class Sorteador {
 			Collections.shuffle(participantes);
 	}
 }
-
-//		Collections.shuffle(participantes);
-//		Set<Par> pares = new HashSet<Par>();
-//
-//		int atual = 0;
-//		while(atual <= participantes.size() - 1) {
-//			if(atual == participantes.size() - 1) {
-//				Par par = new Par(participantes.get(atual), participantes.get(0));
-//				pares.add(par);
-//				return pares;
-//			}
-//			Par par = new Par(participantes.get(atual), participantes.get(atual + 1));
-//			pares.add(par);
-//			atual++;
-//		}
-//		
-//		return pares;
