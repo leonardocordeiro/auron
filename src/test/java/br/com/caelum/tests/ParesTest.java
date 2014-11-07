@@ -12,7 +12,6 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.theories.Theory;
 
 import br.com.caelum.auron.model.Par;
 import br.com.caelum.auron.model.Participante;
@@ -74,7 +73,7 @@ public class ParesTest {
 		
 		Participante amigoOculto1 = par.getAmigoOculto();
 		Participante amigoOculto2 = par2.getAmigoOculto();
-		Participante amigoOculto3 = par.getAmigoOculto();
+		Participante amigoOculto3 = par3.getAmigoOculto();
 	
 		assertFalse(amigoOculto1.equals(amigoOculto2));
 		assertFalse(amigoOculto2.equals(amigoOculto3));

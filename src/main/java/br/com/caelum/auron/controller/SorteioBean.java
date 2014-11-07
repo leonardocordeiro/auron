@@ -1,7 +1,6 @@
 package br.com.caelum.auron.controller;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -31,7 +30,6 @@ public class SorteioBean {
 	public void sortear() {
 		List<Participante> participantes = participanteDao.getParticipantes();
 		Sorteador sorteador = new Sorteador(participantes);
-		Sorteador sorteador2;
 		try { 
 			sorteador.sortear(sorteio);
 			sorteioDao.inserir(sorteio);
