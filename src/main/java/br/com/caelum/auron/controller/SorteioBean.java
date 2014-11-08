@@ -40,13 +40,13 @@ public class SorteioBean {
 
 	public List<Par> getPares() { 
 		if(pares == null)
-			return sorteioDao.getPares();
+			pares = sorteioDao.getPares();
 		return pares;
 	}
 	
 	public List<Sorteio> getSorteios() {
 		if (sorteios == null)
-			return sorteioDao.getSorteios();
+			sorteios = sorteioDao.getSorteios();
 		return sorteios;
 	}
 
