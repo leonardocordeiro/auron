@@ -40,7 +40,7 @@ public class ParesTest {
 	}
 	
 	@Test
-	public void naoDeveTerUmAmigoEmMaisDeUmPar() { 
+	public void naoDeveTerOMesmoAmigoEmMaisDeUmPar() { 
 		Sorteador sorteador = new Sorteador(participantes);
 		sorteador.sortear(sorteio);
 		
@@ -60,7 +60,7 @@ public class ParesTest {
 	}
 	
 	@Test
-	public void naoDeveTerUmAmigoOcultoEmMaisDeUmPar() {
+	public void naoDeveTerOMesmoAmigoOcultoEmMaisDeUmPar() {
 		Sorteador sorteador = new Sorteador(participantes);
 		sorteador.sortear(sorteio);
 		
