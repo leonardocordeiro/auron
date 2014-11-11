@@ -41,7 +41,7 @@ public class ParesTest {
 	}
 	
 	@Test
-	public void naoDeveTerUmAmigoEmMaisDeUmPar() throws SorteioException { 
+	public void naoDeveTerUmMesmoAmigoEmMaisDeUmPar() throws SorteioException { 
 		Sorteador sorteador = new Sorteador(participantes);
 		sorteador.sortear(sorteio);
 		
@@ -61,7 +61,7 @@ public class ParesTest {
 	}
 	
 	@Test
-	public void naoDeveTerUmAmigoOcultoEmMaisDeUmPar() throws SorteioException {
+	public void naoDeveTerUmMesmoAmigoOcultoEmMaisDeUmPar() throws SorteioException {
 		Sorteador sorteador = new Sorteador(participantes);
 		sorteador.sortear(sorteio);
 		
