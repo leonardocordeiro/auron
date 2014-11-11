@@ -14,6 +14,7 @@ import br.com.caelum.auron.model.Par;
 import br.com.caelum.auron.model.Participante;
 import br.com.caelum.auron.model.Sorteador;
 import br.com.caelum.auron.model.Sorteio;
+import br.com.caelum.auron.model.SorteioException;
 
 @Named
 @RequestScoped
@@ -27,7 +28,7 @@ public class SorteioBean {
 	private List<Sorteio> sorteios;
 	private List<Par> pares;
 
-	public void sortear() {
+	public void sortear() throws SorteioException {
 		List<Participante> participantes = participanteDao.getParticipantes();
 		Sorteador sorteador = new Sorteador(participantes);
 		try { 

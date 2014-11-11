@@ -1,24 +1,25 @@
 package br.com.caelum.auron.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
-
-import javax.resource.spi.IllegalStateException;
 
 public class Sorteador {
-	private List<Participante> participantes;
-	
+	private final List<Participante> participantes;
+	private final int totalDeParticipantes;
+
 	public Sorteador(List<Participante> participantes) {
-		this.participantes = participantes;
+		this.participantes = new ArrayList<>(participantes);
+		totalDeParticipantes = participantes.size();
 	}
 
-	public void sortear(Sorteio sorteio) {
+	public void sortear(Sorteio sorteio) throws SorteioException {
+		verificaTamanhoDaListaDeParticipantes();
 		embaralhaParticipantes();
-		
+
 		int atual = 0;
-		while(atual < participantes.size()) {
-			if(seParticipanteAtualForOUltimo(atual)) {
+		while (atual < totalDeParticipantes) {
+			if (participanteAtualEHOUltimo(atual)) {
 				criaParEAdicionaNoSorteio(sorteio, atual, 0);
 				break;
 			}
@@ -27,18 +28,23 @@ public class Sorteador {
 		}
 	}
 
-	private boolean seParticipanteAtualForOUltimo(int atual) {
-		return atual == participantes.size() - 1;
+	private boolean participanteAtualEHOUltimo(int atual) {
+		return atual == totalDeParticipantes - 1;
 	}
 
-	private void criaParEAdicionaNoSorteio(Sorteio sorteio, int atual, int proximo) {
-		Par par = new Par(participantes.get(atual), participantes.get(proximo), sorteio);
+	private void criaParEAdicionaNoSorteio(Sorteio sorteio, int atual,
+			int proximo) {
+		Par par = new Par(participantes.get(atual), participantes.get(proximo),
+				sorteio);
 		sorteio.adicionaPares(par);
 	}
 
 	private void embaralhaParticipantes() {
-		if(participantes.size() < 2)
-			throw new RuntimeException("Lista vazia");
-			Collections.shuffle(participantes);
+		Collections.shuffle(participantes);
+	}
+
+	private void verificaTamanhoDaListaDeParticipantes() throws SorteioException {
+		if (totalDeParticipantes < 2)
+			throw new SorteioException("Lista vazia");
 	}
 }

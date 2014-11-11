@@ -22,4 +22,12 @@ public class ParticipanteDAO {
 		TypedQuery<Participante> query = em.createQuery("from Participante", Participante.class);
 		return query.getResultList();
 	}
+
+	public Participante getParticipante(String email, String senha) {
+		TypedQuery<Participante> query = em.createQuery("from Participante p where p.email=? and p.senha=?", Participante.class);
+		query.setParameter(1, email);
+		query.setParameter(2, senha);
+		
+		return query.getSingleResult();
+	}
 }

@@ -17,6 +17,7 @@ import br.com.caelum.auron.model.Par;
 import br.com.caelum.auron.model.Participante;
 import br.com.caelum.auron.model.Sorteador;
 import br.com.caelum.auron.model.Sorteio;
+import br.com.caelum.auron.model.SorteioException;
 
 public class ParesTest {
 	private Participante p1;
@@ -40,7 +41,7 @@ public class ParesTest {
 	}
 	
 	@Test
-	public void naoDeveTerUmAmigoEmMaisDeUmPar() { 
+	public void naoDeveTerUmAmigoEmMaisDeUmPar() throws SorteioException { 
 		Sorteador sorteador = new Sorteador(participantes);
 		sorteador.sortear(sorteio);
 		
@@ -60,7 +61,7 @@ public class ParesTest {
 	}
 	
 	@Test
-	public void naoDeveTerUmAmigoOcultoEmMaisDeUmPar() {
+	public void naoDeveTerUmAmigoOcultoEmMaisDeUmPar() throws SorteioException {
 		Sorteador sorteador = new Sorteador(participantes);
 		sorteador.sortear(sorteio);
 		
@@ -80,15 +81,15 @@ public class ParesTest {
 	
 	}
 	
-	@Test(expected=RuntimeException.class)
-	public void naoDeveAceitarUmaListaComMenosDeDoisParticipantes() { 
+	@Test(expected=SorteioException.class)
+	public void naoDeveAceitarUmaListaComMenosDeDoisParticipantes() throws SorteioException { 
 		Sorteador sorteador = new Sorteador(new ArrayList<Participante>());
 		sorteador.sortear(sorteio);
 		
 	}
 	
 	@Test
-	public void deveVerificarSeAmigoEDiferenteDoAmigoOculto() { 
+	public void deveVerificarSeAmigoEDiferenteDoAmigoOculto() throws SorteioException { 
 		Sorteador sorteador = new Sorteador(participantes);
 		sorteador.sortear(sorteio);
 		
@@ -116,7 +117,7 @@ public class ParesTest {
 	}
 	
 	@Test
-	public void deveVerificarSeOAmigoOcultoDoUltimoParEOAmigoDoPrimeiroPar() { 
+	public void deveVerificarSeOAmigoOcultoDoUltimoParEOAmigoDoPrimeiroPar() throws SorteioException { 
 		Sorteador sorteador = new Sorteador(participantes);
 		sorteador.sortear(sorteio);
 		
