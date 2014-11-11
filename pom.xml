@@ -7,30 +7,30 @@
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
- <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following 
-            message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
-            resources, i.e. build is platform dependent! -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<properties>
+		<!-- Explicitly declaring the source encoding eliminates the following 
+			message: -->
+		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+			resources, i.e. build is platform dependent! -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- JBoss dependency versions -->
-        <version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
+		<!-- JBoss dependency versions -->
+		<version.wildfly.maven.plugin>1.0.2.Final</version.wildfly.maven.plugin>
 
-        <!-- Define the version of the JBoss BOMs we want to import to specify 
-            tested stacks. -->
-        <version.jboss.bom>8.0.0.Final</version.jboss.bom>
-        <version.arquillian.container>8.0.0.Final</version.arquillian.container>
+		<!-- Define the version of the JBoss BOMs we want to import to specify 
+			tested stacks. -->
+		<version.jboss.bom>8.0.0.Final</version.jboss.bom>
+		<version.arquillian.container>8.0.0.Final</version.arquillian.container>
 
-        <!-- other plugin versions -->
-        <version.compiler.plugin>3.1</version.compiler.plugin>
-        <version.surefire.plugin>2.16</version.surefire.plugin>
-        <version.war.plugin>2.1.1</version.war.plugin>
+		<!-- other plugin versions -->
+		<version.compiler.plugin>3.1</version.compiler.plugin>
+		<version.surefire.plugin>2.16</version.surefire.plugin>
+		<version.war.plugin>2.1.1</version.war.plugin>
 
-        <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <maven.compiler.source>1.7</maven.compiler.source>
-    </properties>
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<maven.compiler.source>1.7</maven.compiler.source>
+	</properties>
 
 
 
@@ -113,7 +113,18 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.1.3.Final</version>
+			<scope>provided</scope>
+
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+
+		</dependency>
+
+
 	</dependencies>
 	<build>
 		<finalName>Auron</finalName>
@@ -126,166 +137,166 @@
 				</configuration>
 			</plugin>
 			<plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${version.compiler.plugin}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${version.compiler.plugin}</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
-		<profiles>
+	<profiles>
 
-			<profile>
+		<profile>
 
-				<!-- The default profile skips all tests, though you can tune it to run 
-					just unit tests based on a custom pattern -->
+			<!-- The default profile skips all tests, though you can tune it to run 
+				just unit tests based on a custom pattern -->
 
-				<!-- Seperate profiles are provided for running all tests, including 
-					Arquillian tests that execute in the specified container -->
+			<!-- Seperate profiles are provided for running all tests, including Arquillian 
+				tests that execute in the specified container -->
 
-				<id>default</id>
+			<id>default</id>
 
-				<activation>
+			<activation>
 
-					<activeByDefault>true</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 
-				</activation>
+			</activation>
 
-				<build>
+			<build>
 
-					<plugins>
+				<plugins>
 
-						<plugin>
+					<plugin>
 
-							<artifactId>maven-surefire-plugin</artifactId>
+						<artifactId>maven-surefire-plugin</artifactId>
 
-							<version>2.16</version>
+						<version>2.16</version>
 
-							<configuration>
+						<configuration>
 
-								<skip>true</skip>
+							<skip>true</skip>
 
-							</configuration>
+						</configuration>
 
-						</plugin>
+					</plugin>
 
-					</plugins>
+				</plugins>
 
-				</build>
+			</build>
 
-			</profile>
+		</profile>
 
 
 
-			<profile>
+		<profile>
 
 
 
-				<!-- An optional Arquillian testing profile that executes tests in your 
-					WildFly instance -->
+			<!-- An optional Arquillian testing profile that executes tests in your 
+				WildFly instance -->
 
-				<!-- This profile will start a new WildFly instance, and execute the 
-					test, shutting it down when done -->
+			<!-- This profile will start a new WildFly instance, and execute the test, 
+				shutting it down when done -->
 
-				<!-- Run with: mvn clean test -Parq-wildfly-managed -->
+			<!-- Run with: mvn clean test -Parq-wildfly-managed -->
 
-				<id>arq-wildfly-managed</id>
+			<id>arq-wildfly-managed</id>
 
-				<dependencies>
+			<dependencies>
 
-					<dependency>
+				<dependency>
 
-						<groupId>org.wildfly</groupId>
+					<groupId>org.wildfly</groupId>
 
-						<artifactId>wildfly-arquillian-container-managed</artifactId>
+					<artifactId>wildfly-arquillian-container-managed</artifactId>
 
-						<version>${version.arquillian.container}</version>
+					<version>${version.arquillian.container}</version>
 
-						<scope>test</scope>
+					<scope>test</scope>
 
-					</dependency>
+				</dependency>
 
-				</dependencies>
+			</dependencies>
 
-			</profile>
+		</profile>
 
 
 
-			<profile>
+		<profile>
 
-				<!-- An optional Arquillian testing profile that executes tests in a 
-					remote WildFly instance -->
+			<!-- An optional Arquillian testing profile that executes tests in a remote 
+				WildFly instance -->
 
-				<!-- Run with: mvn clean test -Parq-wildfly-remote -->
+			<!-- Run with: mvn clean test -Parq-wildfly-remote -->
 
-				<id>arq-wildfly-remote</id>
+			<id>arq-wildfly-remote</id>
 
-				<dependencies>
+			<dependencies>
 
-					<dependency>
+				<dependency>
 
-						<groupId>org.wildfly</groupId>
+					<groupId>org.wildfly</groupId>
 
-						<artifactId>wildfly-arquillian-container-remote</artifactId>
+					<artifactId>wildfly-arquillian-container-remote</artifactId>
 
-						<version>${version.arquillian.container}</version>
+					<version>${version.arquillian.container}</version>
 
-						<scope>test</scope>
+					<scope>test</scope>
 
-					</dependency>
+				</dependency>
 
-				</dependencies>
+			</dependencies>
 
-			</profile>
+		</profile>
 
 
 
-			<profile>
+		<profile>
 
-				<!-- When built in OpenShift the 'openshift' profile will be used when 
-					invoking mvn. -->
+			<!-- When built in OpenShift the 'openshift' profile will be used when 
+				invoking mvn. -->
 
-				<!-- Use this profile for any OpenShift specific customization your app 
-					will need. -->
+			<!-- Use this profile for any OpenShift specific customization your app 
+				will need. -->
 
-				<!-- By default that is to put the resulting archive into the 'deployments' 
-					folder. -->
+			<!-- By default that is to put the resulting archive into the 'deployments' 
+				folder. -->
 
-				<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 
-				<id>openshift</id>
+			<id>openshift</id>
 
-				<build>
+			<build>
 
-					<plugins>
+				<plugins>
 
-						<plugin>
+					<plugin>
 
-							<artifactId>maven-war-plugin</artifactId>
+						<artifactId>maven-war-plugin</artifactId>
 
-							<version>${version.war.plugin}</version>
+						<version>${version.war.plugin}</version>
 
-							<configuration>
+						<configuration>
 
-								<outputDirectory>deployments</outputDirectory>
+							<outputDirectory>deployments</outputDirectory>
 
-								<warName>ROOT</warName>
+							<warName>ROOT</warName>
 
-							</configuration>
+						</configuration>
 
-						</plugin>
+					</plugin>
 
-					</plugins>
+				</plugins>
 
-				</build>
+			</build>
 
-			</profile>
+		</profile>
 
 
 
-		</profiles>
+	</profiles>
 
 </project>
