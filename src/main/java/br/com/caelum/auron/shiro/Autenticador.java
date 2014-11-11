@@ -48,7 +48,7 @@ public class Autenticador implements Realm {
 		props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
 		try {
 			InitialContext ctx = new InitialContext(props);
-			ParticipanteDao dao = (ParticipanteDao) ctx.lookup("java:module/ParticipanteDAO");
+			ParticipanteDao dao = (ParticipanteDao) ctx.lookup("java:module/ParticipanteDao");
 			return dao;
 		} catch(NamingException e) { 
 			throw new RuntimeException(e);
