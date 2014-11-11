@@ -2,6 +2,7 @@ package br.com.caelum.auron.shiro;
 
 import java.util.Properties;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -12,39 +13,26 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.realm.Realm;
 
-import br.com.caelum.auron.beans.ParticipanteDAO;
-import br.com.caelum.auron.model.Participante;
+import br.com.caelum.auron.dao.ParticipanteDao;
+import br.com.caelum.auron.modelo.Participante;
 
 public class Autenticador implements Realm {
 	
-	private ParticipanteDAO participanteDao;
+	private ParticipanteDao participanteDao;
 	
 	@Override
 	public AuthenticationInfo getAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		UsernamePasswordToken usernameToken = (UsernamePasswordToken) token;
 		
 		String email = usernameToken.getUsername();
-		
 		String senha = new String(usernameToken.getPassword());
 
-		try {
-			participanteDao = getParticipanteDAO();
-		} catch (NamingException e) {
-			e.printStackTrace();
-			return null;
-		}
-		System.out.println("===== " + participanteDao + " ========");
+		participanteDao = getParticipanteDAO();
+
 		Participante participante = participanteDao.getParticipante(email, senha);
 		
 		if(participante != null) {
 			AuthenticationInfo info = new SimpleAuthenticationInfo(email, senha, getName());
-			/*
-			SimpleCredentialsMatcher matcher = new SimpleCredentialsMatcher();
-			
-			if(matcher.doCredentialsMatch(token, info)) {
-	             return info;
-	        }
-	        */
 			return info;
 		}
 		throw new AuthenticationException();
@@ -55,21 +43,20 @@ public class Autenticador implements Realm {
 		return this.getClass().getSimpleName();
 	}
 	
-	public ParticipanteDAO getParticipanteDAO() throws NamingException {
+	public ParticipanteDao getParticipanteDAO() {
 		Properties props = new Properties();
-		props.put(InitialContext.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
-		props.put(InitialContext.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-		props.put(InitialContext.PROVIDER_URL, "remote://localhost:4447");
-		props.put(InitialContext.SECURITY_PRINCIPAL, "leonardo");
-		props.put(InitialContext.SECURITY_CREDENTIALS, "leo941231");
-		
-		InitialContext ctx = new InitialContext(props);
-		return (ParticipanteDAO) ctx.lookup("ejb:auron/ParticipanteDAO");
+		props.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
+		try {
+			InitialContext ctx = new InitialContext(props);
+			ParticipanteDao dao = (ParticipanteDao) ctx.lookup("java:module/ParticipanteDAO");
+			return dao;
+		} catch(NamingException e) { 
+			throw new RuntimeException(e);
+		}
 	}
 	
 	@Override
 	public boolean supports(AuthenticationToken token) {
 		return true;
 	}
-
 }

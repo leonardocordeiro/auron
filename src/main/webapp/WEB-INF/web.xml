@@ -23,7 +23,6 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- Apache Shiro -->
 	<listener>
 		<listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
 	</listener>
@@ -40,5 +39,4 @@
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
-
 </web-app>
