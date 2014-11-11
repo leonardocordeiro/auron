@@ -17,7 +17,7 @@ public class Sorteio {
 	@GeneratedValue
 	private int id;
 	private String nome;
-	@OneToMany(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER, mappedBy="sorteio")
+	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER, mappedBy="sorteio")
 	private Set<Par> pares = new LinkedHashSet<Par>();
 
 	public int getId() {
