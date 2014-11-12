@@ -31,7 +31,10 @@ public class SorteioBean {
 	private List<Par> pares;
 	@Inject
 	private Subject user;
-
+	@Inject
+	private FacesContext ctx;
+	
+	
 	public String sortear() throws SorteioException, NamingException {
 		List<Participante> participantes = participanteDao.getParticipantes();
 		Sorteador sorteador = new Sorteador(participantes);
@@ -39,7 +42,7 @@ public class SorteioBean {
 			sorteador.sortear(sorteio);
 			sorteioDao.inserir(sorteio);
 		} catch(SorteioException e) { 
-			FacesContext.getCurrentInstance().addMessage("lista.vazia", new FacesMessage("Nao existem participantes para se fazer um sorteio!"));
+			ctx.addMessage("lista.vazia", new FacesMessage("Nao existem participantes para se fazer um sorteio!"));
 		}
 		return "sorteio?faces-redirect=true";
 	}

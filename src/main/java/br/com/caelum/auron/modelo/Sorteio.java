@@ -12,11 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Sorteio {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	@NotEmpty(message="{sorteio.nome.vazio}")
 	private String nome;
 	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER, mappedBy="sorteio")
 	private Set<Par> pares = new LinkedHashSet<Par>();
