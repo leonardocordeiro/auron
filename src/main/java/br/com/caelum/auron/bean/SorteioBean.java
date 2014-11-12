@@ -1,16 +1,15 @@
 package br.com.caelum.auron.bean;
 
 import java.util.List;
-import java.util.Properties;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import org.apache.shiro.subject.Subject;
 
 import br.com.caelum.auron.dao.ParticipanteDao;
 import br.com.caelum.auron.dao.SorteioDao;
@@ -30,6 +29,8 @@ public class SorteioBean {
 	private Sorteio sorteio = new Sorteio();
 	private List<Sorteio> sorteios;
 	private List<Par> pares;
+	@Inject
+	private Subject user;
 
 	public String sortear() throws SorteioException, NamingException {
 		List<Participante> participantes = participanteDao.getParticipantes();
@@ -44,8 +45,10 @@ public class SorteioBean {
 	}
 
 	public List<Par> getPares() { 
+		String email = (String) user.getPrincipal();
+		
 		if(pares == null)
-			pares = sorteioDao.getPares();
+			pares = sorteioDao.getPares(email);
 		return pares;
 	}
 	
