@@ -43,14 +43,13 @@ public class ParticipanteBean {
 	}
 
 	public String login() throws IOException {
-		UsernamePasswordToken token = new UsernamePasswordToken(participante.getEmail(), participante.getSenha());
-		
+		UsernamePasswordToken token = new UsernamePasswordToken(participante.getEmail(),
+																participante.getSenha());
 		try {
 			user.login(token);
 			return "sorteio?faces-redirect=true";
 		} catch (AuthenticationException e) {
-			e.printStackTrace();
-			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Usuário/senha inválido(s)!", "Usuário/senha inválido(s)!"));
+			ctx.addMessage(null, new FacesMessage("Email ou senha inválido!"));
 		}
 		return null;
 	}
@@ -69,5 +68,4 @@ public class ParticipanteBean {
 	public Participante getParticipante() {
 		return participante;
 	}
-
 }

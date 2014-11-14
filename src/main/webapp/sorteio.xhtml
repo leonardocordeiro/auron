@@ -12,7 +12,6 @@
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Nome: "/>
 						<p:inputText value="#{sorteioBean.sorteio.nome}" />
-				
 						<p:row>
 							<p:column colspan="2">
 								<p:commandButton value="Cadastrar" action="#{sorteioBean.sortear}" update=":pares" />
@@ -24,13 +23,10 @@
 			<br />
 			<p:fieldset legend="Sorteios" id="pares">
 				<p:dataTable value="#{sorteioBean.pares}" var="par" emptyMessage="Ainda nao há sorteio cadastrado!">
-					<p:column headerText="Nome do Sorteio">
+					<p:column headerText="Nome do sorteio">
 						<h:outputText value="#{par.sorteio.nome}" />
 					</p:column>
-					<p:column headerText="Amigo:">
-						<h:outputText value="#{par.amigo.nome}" />
-					</p:column>
-					<p:column headerText="Amigo Oculto:">
+					<p:column headerText="Meu amigo oculto:">
 						<h:outputText value="#{par.amigoOculto.nome}" />
 					</p:column>
 				</p:dataTable>
